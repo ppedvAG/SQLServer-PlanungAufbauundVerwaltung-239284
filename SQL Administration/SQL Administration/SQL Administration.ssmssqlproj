@@ -181,6 +181,12 @@
           <AssociatedConnUserName>sa</AssociatedConnUserName>
           <FullPath>Z_Ola Hallengren.sql</FullPath>
         </FileNode>
+        <FileNode Name="z_Perfmon_Indikatoren.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>z_Perfmon_Indikatoren.sql</FullPath>
+        </FileNode>
         <FileNode Name="Z_RecoveryModel.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
@@ -194,8 +200,8 @@
           <FullPath>Z_sp_help_revlogin.sql</FullPath>
         </FileNode>
         <FileNode Name="Z_SQL Server 2022 Diagnostic Information Queries.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:BIGBEN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>BIGBEN</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>Z_SQL Server 2022 Diagnostic Information Queries.sql</FullPath>
         </FileNode>
