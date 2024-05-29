@@ -1,11 +1,25 @@
+--in jeder DB vorhanden
+
+--Login anlegen für verw. benutzer
 sp_change_users_login 'Auto_fix' , 'JamesBond', NULL,'ppedv2023!' 
-sp_change_users_login 'Report'
+
+
+sp_change_users_login 'Report' --verwaiste Benutzer finden in der DB
+
+--Login dem verw. User zuordnen
 sp_change_users_login 'Update_one', 'JamesBond', 'JamesBond'
 
 
+--muss man sich besorgen--auf Orig Server ausführen
 sp_help_revlogin
 --PROZEDUR
 
+
+--hier können create Login generiert werden inkl Kennwort
+sp_help_revlogin
+
+
+--Script
 USE [master]
   GO
   IF OBJECT_ID ('sp_hexadecimal') IS NOT NULL

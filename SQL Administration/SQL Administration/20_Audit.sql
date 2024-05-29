@@ -1,40 +1,44 @@
-USE [Northwind]
-
+USE [master]
 GO
---auch per TSQL zB
 
-CREATE DATABASE AUDIT SPECIFICATION [tmpMonitor]
-FOR SERVER AUDIT [tmpAudit]
-ADD (UPDATE ON OBJECT::[dbo].[tmpTest] BY [public]),
-ADD (INSERT ON OBJECT::[dbo].[tmpTest] BY [public]),
-ADD (DELETE ON OBJECT::[dbo].[tmpTest] BY [public])
-
+/****** Object:  Audit [Securityaudit]    Script Date: 29.05.2024 11:29:04 ******/
+CREATE SERVER AUDIT [Securityaudit]
+TO FILE 
+(	FILEPATH = N'C:\_SQLDATA\'
+	,MAXSIZE = 0 MB
+	,MAX_ROLLOVER_FILES = 2147483647
+	,RESERVE_DISK_SPACE = OFF
+) WITH (QUEUE_DELAY = 1000, ON_FAILURE = CONTINUE, AUDIT_GUID = '8f078e27-f443-410b-ae83-66a74f0b6843')
+ALTER SERVER AUDIT [Securityaudit] WITH (STATE = OFF)
 GO
-declare @used as int
-select @used=count(object_name) from sys.fn_get_audit_file 
-	('C:\_SQLBACKUP\tmpAudit_2F323F6C-360A-467A-A022-A716BED73CB5_0_133419320684470000.sqlaudit', default, default) 
-	where object_name='tmpTest'
-select @used
 
 
-select *  from sys.fn_get_audit_file
-	(
-	'C:\_SQLBACKUP\Security_Audit_FEE98F05-198B-41FA-82D3-D43717E72AAB_0_133572148333750000.sqlaudit'
-	, default
-	, default
-	) 
-	
 
-	Fehler bei der Anmeldung für den Benutzer "Susi".Ursache: 
-	Fehler beim Öffnen 
+USE [master]
+GO
 
+CREATE SERVER AUDIT SPECIFICATION [LoginMonitor]
+FOR SERVER AUDIT [Securityaudit]
+ADD (FAILED_LOGIN_GROUP),
+ADD (SUCCESSFUL_LOGIN_GROUP),
+ADD (LOGIN_CHANGE_PASSWORD_GROUP)
+WITH (STATE = OFF)
+GO
+
+use northwind
+
+CREATE DATABASE AUDIT SPECIFICATION AccessEmployeesSusi
+FOR SERVER AUDIT [Securityaudit]
+ADD (SELECT ON OBJECT::[dbo].[Employees] BY [Susi])
+WITH (STATE = OFF)
+GO
 
 
 
 
 
 select * from sys.fn_get_audit_file 
-	('C:\_SQLBACKUP\tmpAudit_2F323F6C-360A-467A-A022-A716BED73CB5_0_133419320684470000.sqlaudit', default, default) 
+	('C:\_SQLBACKUP\tSecurityAudit_2F323F6C-360A-467A-A022-A716BED73CB5_0_133419320684470000.sqlaudit', default, default) 
 
 
 
